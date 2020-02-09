@@ -1,0 +1,18 @@
+{
+	"Rent": {
+	"name": "rent", "match": ["rent"]
+	},
+	"deposit": {
+		"name":  "deposit", "match":  ["deposit"]
+	},
+	"utilities": {
+		"name":  "utilities", "match":  ["utilities"]
+	},
+	"washing": {
+		"name": "washing", "match":  ["washing"]
+	},
+	"heating": {
+		"name":  "heating", "match": ["heating"]
+	}
+}
+
