@@ -1,0 +1,6 @@
+nltk
+json
+pymongo
+gensim
+datetime
+speeck_recognition
