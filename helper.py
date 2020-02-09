@@ -44,7 +44,7 @@ def doc2vec(labels, text, train_offers = True):
         mod.build_vocab(doc)
         mod.epochs = 10
         mod.train(doc, epochs=mod.epochs, total_examples=mod.corpus_count)
-        mod.save('/mods/current_model.doc2vec')
+        mod.save('/mods/current_total_model.doc2vec')
 
         return mod
 
@@ -54,6 +54,9 @@ def doc2vec(labels, text, train_offers = True):
         mod.build_vocab(doc)
         mod.epochs = 10
         mod.train(doc, epochs=mod.epochs, total_examples=mod.corpus_count)
+        #mod.save("/mods/tmp_request.doc2vec")
+
+        return mod
 
 
 
@@ -62,6 +65,8 @@ def get_offers():
     retreive offers from database
     :return:
     """
+
+
 
     pass
 

@@ -2,6 +2,7 @@ from nltk.corpus import wordnet
 import json
 from pymongo import MongoClient
 from helper import get_offers, doc2vec
+from gensim.models.doc2vec import Doc2Vec
 
 
 class analyse_data():
@@ -21,6 +22,7 @@ class analyse_data():
 
         client = MongoClient() #database stuff
         self.db = client.prototype
+        self.best_fit = None #what we are aiming for goes here
 
 
     def parameter_matching(self, trail_lead = 3):
@@ -68,7 +70,7 @@ class analyse_data():
 
         return
 
-    def parameter_wordnet(self, tolerance = 0.90):
+    def parameter_wordnet(self, tolerance = 0.80):
         """
         apply vectorisation of input to approximate our parameters.
         we can check how close words are to match words to our parameters
@@ -142,7 +144,6 @@ class analyse_data():
         :return:
         """
 
-
         if train_offers:
 
             offers = get_offers()
@@ -158,6 +159,16 @@ class analyse_data():
             labels = self.timestamp
 
         mod = doc2vec(text = text, labels = labels, train_offers = train_offers)
+
+        if train_offers:
+            #get the most similar tags for our request
+            self.best_fit = mod.most_similar(self.timestamp)
+
+        else:
+            req_vec = mod[self.timestamp]
+            offers_mod = Doc2Vec.load('/mods/current_total_model.doc2vec')
+            self.best_fit = offers_mod.most_similar(req_vec)
+
 
 
 
