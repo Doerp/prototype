@@ -72,3 +72,5 @@ def get_offers():
 
 
 #FINISH THIS THING UP
+#testing of functions
+#get offers function
