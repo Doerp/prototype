@@ -78,12 +78,20 @@ class init_data:
         #remove stop words - these are typically not important - we lose negations though :/ lets not do that for the moment
 
         #words should be transformed into tokens to work with in nlp
+        assert (self.raw_text is not None), "words must be detectable"
         self.text = word_tokenize(self.raw_text)
 
         #we need to address the part of speech tag for later wordnet usage
-        self.tagged = pos_tag(self.text)
+        try:
+            self.tagged = pos_tag(self.text)
+        except:
+            self.tagged = None
+            print("non-understandable text")
 
         #we will lowercase them all to make them comparable and matchable
+
+        assert(self.text is not None), "text may not be none"
+        assert(self.tagged is not None), "tagged words may not be none"
         self.text = [token.lower() for token in self.text]
 
         return

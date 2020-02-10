@@ -3,4 +3,4 @@ json
 pymongo
 gensim
 datetime
-speeck_recognition
+speech_recognition

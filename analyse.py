@@ -1,5 +1,6 @@
 from nltk.corpus import wordnet
 import json
+import nltk
 from pymongo import MongoClient
 from helper import get_offers, doc2vec
 from gensim.models.doc2vec import Doc2Vec
@@ -24,6 +25,10 @@ class analyse_data():
         self.db = client.prototype
         self.best_fit = None #what we are aiming for goes here
 
+        if self.data is None:
+            print("non-workable data")
+            return
+
 
     def parameter_matching(self, trail_lead = 3):
         """
@@ -45,20 +50,22 @@ class analyse_data():
 
                 #check the synonyms for each parameter and check for negations or digits
                 #need to expand here for sure... need to add ceilings, ranges etc.
-                if word in self.parameters["match"]:
+                if word in parameter["match"]:
 
-                    investigate_elements = self.data[self.data.index[word]:self.data.index[word] + trail_lead]
-                    investigate_elements.append(self.data[self.data.index[word]:self.data.index[word] - trail_lead])
+                    investigate_elements = self.data[self.data.index(word):self.data.index(word) + trail_lead]
+                    investigate_elements.append(self.data[self.data.index(word):self.data.index(word) - trail_lead])
 
-                    negation = json.load(open('negation.json.json', 'r'))
+                    negation = json.load(open('negation.json', 'r'))
 
                     for element in investigate_elements:
 
-                        if element in negation:
+                        if len(element) > 0 and element in negation:
                             self.parameter_dict[parameter["name"]] = False
+                            break
 
-                        if element.isdigit:
+                        if len(element) > 0 and element.isdigit():
                             self.parameter_dict[parameter["name"]] = element
+                            break
 
                         else:
 
@@ -76,6 +83,8 @@ class analyse_data():
         we can check how close words are to match words to our parameters
         :return:
         """
+
+        nltk.download("wordnet")
 
         coll = self.db.parameters.find()
         self.parameters = [elem["name"] for elem in coll]
@@ -95,6 +104,7 @@ class analyse_data():
 
         wordnet_input_text = []
 
+
         for tuple in self.tagged:
 
             #match for now only nouns
@@ -111,15 +121,18 @@ class analyse_data():
 
             for input in wordnet_input_text:
 
-                if wordnet.synset(parameter).wup_similarity(wordnet.synset(input)) > tolerance:
+                try:
+                    if wordnet.synset(parameter).wup_similarity(wordnet.synset(input)) > tolerance:
+                        # if we have similar words, add them to the parameter corpus
+                        self.db.parameters.update_one(
+                            {"name": parameter[:-5]},
+                            {"$push": {"match": input[:-5]}}
+                        )
+                        #TODO: check for duplicates
+                    else:
+                        continue
 
-                    #if we have similar words, add them to the parameter corpus
-                    self.db.parameters.update_one(
-                        {"name": parameter[:-5]},
-                        {"$push": {"match": input[:-5]}}
-                    )
-
-                else:
+                except:
                     continue
 
         return

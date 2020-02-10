@@ -10,8 +10,12 @@ init_data.import_input()
 init_data.preprocess()
 
 analyse_data = analyse_data(init_data)
-#analyse_data.check_params()
+analyse_data.check_params()
 analyse_data.check_document_similarity()
 
-
+"""
+Ideas:
+track where people click
+analyse text and check what kind of parameters people are still missing?
+"""
 
