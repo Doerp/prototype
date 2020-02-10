@@ -11,6 +11,10 @@
 	"washing": {
 		"name": "washing", "match":  ["washing"]
 	},
+	"beach": {
+		"name": "beach",
+		"match":["waterfront", "beachfront"]
+	},
 	"heating": {
 		"name":  "heating", "match": ["heating"]
 	}

@@ -4,3 +4,5 @@ pymongo
 gensim
 datetime
 speech_recognition
+pandas
+pyaudio

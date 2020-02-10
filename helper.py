@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import json
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
+import pandas as pd
 
 def set_up_mongodb():
     """
@@ -13,15 +14,18 @@ def set_up_mongodb():
     client = MongoClient()
     db = client.prototype
 
-    # grab our premade parameters and insert them here
-    parameters = json.load(open('parameter_words.json', 'r'))
+    if db.parameters.count() == 0:
 
-    print(parameters)
-    for param in parameters:
-        db.parameters.insert_one(parameters[param])
+        # grab our premade parameters and insert them here
+        parameters = json.load(open('parameter_words.json', 'r'))
 
-if __name__ == "__main__":
-    set_up_mongodb()
+        print(parameters)
+        for param in parameters:
+            db.parameters.insert_one(parameters[param])
+
+    else:
+
+        print("database exists - continue...")
 
 
 def doc2vec(labels, text, train_offers = True):
@@ -66,10 +70,11 @@ def get_offers():
     :return:
     """
 
+    offers = pd.read_csv("samples/listings.csv", sep = ",", nrows = 100)
+    return offers[["listing_url", "description"]]
 
-
-    pass
-
+if __name__ == "__main__":
+    get_offers()
 
 #FINISH THIS THING UP
 #testing of functions
