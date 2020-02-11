@@ -61,15 +61,15 @@ class analyse_data():
 
                     for element in investigate_elements:
 
-                        if len(element) > 0 and len(element) < 2 and element in negation:
+                        if len(element) > 0 and element in negation:
                             self.parameter_dict[parameter["name"]] = False
                             break
 
-                        if len(element) > 0 and len(element) < 2 and element.isdigit():
+                        if len(element) > 0 and element.isdigit():
                             self.parameter_dict[parameter["name"]] = element
                             break
 
-                        if len(element) > 0 and len(element) < 2 and element == "close":
+                        if len(element) > 0 and element == "close":
                             self.parameter_dict[parameter["name"]] = "close"
 
                         else:
@@ -162,25 +162,32 @@ class analyse_data():
             offer_.parameter_wordnet()
             offer_.parameter_matching()
 
-            try: #TODO: figure this shit out
-                self.offer_dict[offer_.ID]["dict"]= offer_.parameter_dict
-                self.offer_dict[offer_.ID]["score"] = 0 #initial amount of hits for the parameter setup
-            except:
+            if len(offer_.parameter_dict) > 0:
+
+                try:  # TODO: figure this shit out
+                    self.offer_dict[offer_.ID] = {"dict": offer_.parameter_dict,
+                                                "score" : 0}
+                except:
+                    continue
+
+            else:
                 continue
 
-        #now we have the parameters of the offer and of the request based on the nlp analysis of the parameters provided
-        for result in self.offer_dict["dict"]:
-            for param_ in result: #if there is more than just the ID in there
-                if len(param_) >1:
-                    if [param_] == self.parameter_dict[param_]:
-                        pass
-                    else:
-                        continue
+        #now we have the parameters of the offer and of the request based on the nlp analysis of the parameters provided - do parameter matching here
+        for offer_ in self.offer_dict:
+
+            for param in self.offer_dict[offer_]["dict"]:
+
+                if self.offer_dict[offer_]["dict"][param] == self.parameter_dict[param]:
+
+                    self.offer_dict[offer_]["score"] += 1
+
                 else:
                     continue
 
         #now we know how many matches there are between the offers and requests and can select the match with highest score
-        best_matches = sorted(self.parameter_dict.items(), key=lambda x: x["score"], reverse=True)
+        best_matches = {offer:self.offer_dict[offer]["score"] for offer in self.offer_dict}
+        best_matches = {k: v for k, v in sorted(best_matches.items(), key=lambda item: item[1], reverse=True)}
 
         return best_matches
 

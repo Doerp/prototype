@@ -10,8 +10,9 @@ init_data.import_input()
 init_data.preprocess()
 
 analyse_data = analyse_data(init_data)
-best_matches_parameters = analyse_data.check()
-best_matches_similarity = analyse_data.check_document_similarity()
+best_matches = analyse_data.check()
+print(best_matches)
+#best_matches_similarity = analyse_data.check_document_similarity()
 
 """
 Ideas:
