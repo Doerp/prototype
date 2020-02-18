@@ -88,6 +88,7 @@ class offer_class():
                             break
 
                         if len(element) > 0 and len(element) < 2 and element.isdigit():
+                            print("added element is", element)
                             self.parameter_dict[parameter["name"]] = element
                             break
 

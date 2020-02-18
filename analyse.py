@@ -175,11 +175,20 @@ class analyse_data():
 
             else:
                 continue
+        
+        # This is not printing - super weird
+        for key, value in self.parameter_dict.items():
+            print("key value pair for debugging: ", [key, value])
 
         #now we have the parameters of the offer and of the request based on the nlp analysis of the parameters provided - do parameter matching here
         for offer_ in self.offer_dict:  # self.offer_dict stores the different offers
 
             for param in self.offer_dict[offer_]["dict"]:
+                # print("check1: ", self.offer_dict[offer_])
+                # print("check2: ", self.offer_dict[offer_]["dict"])
+                # print("check3: ", self.offer_dict[offer_]["dict"][param])
+                # print("check4: ", self.parameter_dict[param])
+                print("current param is: ", param)
 
                 if self.offer_dict[offer_]["dict"][param] == self.parameter_dict[param]:
 

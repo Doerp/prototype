@@ -71,7 +71,7 @@ def get_offers():
     :return:
     """
 
-    offers = pd.read_csv("samples/listings.csv", sep = ",", nrows = 100)
+    offers = pd.read_csv("samples/listings_2.csv", sep = ",", nrows = 100)
     return offers[["listing_url", "description"]]
 
 def add_data():
@@ -80,13 +80,16 @@ def add_data():
     """
     new_listing_url = input("Please input listing url for new listing: ")
     new_description = input("Please input some descriptions: ")
-    in_file = pd.read_csv("samples/listings.csv", sep = ",", nrows = 100)
-    new_row = pd.DataFrame({'listing_url': new_listing_url,
-                             'description': new_description}, index=[0])
+    in_file = pd.read_csv("samples/listings_2.csv", sep = ",", nrows = 100)
+    in_file.loc[-1] = [0, new_listing_url, new_description]
+    in_file.index = in_file.index + 1
+    in_file = in_file.sort_index()
+    # new_row = pd.DataFrame({'listing_url': new_listing_url,
+    #                          'description': new_description}, index=[0])
 
-    with open("samples/listings.csv", "w") as outfile:
-        writer = csv.writer(outfile)
-        writer.writerow([None, new_listing_url, None, None, None, None, new_description])
+    # with open("samples/listings.csv", "w") as outfile:
+    #     writer = csv.writer(outfile)
+    #     writer.writerow([None, new_listing_url, None, None, None, None, new_description])
 
 if __name__ == "__main__":
     get_offers()
