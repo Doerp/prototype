@@ -1,9 +1,8 @@
 nltk
-json
 pymongo
 gensim
 datetime
-speech_recognition
+SpeechRecognition
 pandas
 pyaudio
 csv
