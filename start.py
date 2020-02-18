@@ -29,6 +29,7 @@ class init_data:
         # is it live or not live?
         mode = "live"
         speech = True
+        # speech = False
 
         self.mode = mode
         self.speech = speech
@@ -63,7 +64,10 @@ class init_data:
                 return
 
         else:
-            pass
+            text = input("Enter your search demands: ")
+            self.raw_text = text
+            self.audio = None
+            # pass
 
         return
 

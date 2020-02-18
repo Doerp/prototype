@@ -170,11 +170,14 @@ class analyse_data():
                 except:
                     continue
 
+            for key, value in self.offer_dict.items():
+                print("key value pair is: ", [key, value])
+
             else:
                 continue
 
         #now we have the parameters of the offer and of the request based on the nlp analysis of the parameters provided - do parameter matching here
-        for offer_ in self.offer_dict:
+        for offer_ in self.offer_dict:  # self.offer_dict stores the different offers
 
             for param in self.offer_dict[offer_]["dict"]:
 
@@ -186,8 +189,12 @@ class analyse_data():
                     continue
 
         #now we know how many matches there are between the offers and requests and can select the match with highest score
-        best_matches = {offer:self.offer_dict[offer]["score"] for offer in self.offer_dict}
+        best_matches = {offer: self.offer_dict[offer]["score"] for offer in self.offer_dict}
+        # for key, value in best_matches.items():
+        #     print("key value pair is: ", [key, value])
         best_matches = {k: v for k, v in sorted(best_matches.items(), key=lambda item: item[1], reverse=True)}
+        # for key, value in best_matches.items():
+        #     print("key value pair after shuffling is: ", [key, value])
 
         return best_matches
 
