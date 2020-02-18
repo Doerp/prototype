@@ -3,6 +3,7 @@ import json
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import pandas as pd
+import csv
 
 def set_up_mongodb():
     """
@@ -62,6 +63,19 @@ def doc2vec(labels, text, train_offers = True):
 
         return mod
 
+def add_data():
+    """
+    add data to the database
+    """
+    new_listing_url = input("Please input listing url for new listing: ")
+    new_description = input("Please input some descriptions: ")
+    in_file = pd.read_csv("samples/listing_adj.csv", sep = ",", nrows = 150, index_col=False)
+
+    in_file.loc[-1] = [new_listing_url, new_description]  # adding a row
+    in_file.index = in_file.index + 1  # shifting index
+    in_file = in_file.sort_index()
+
+    in_file.to_csv("sample/listing_adj.csv", sep = ",")
 
 
 def get_offers():
@@ -70,11 +84,11 @@ def get_offers():
     :return:
     """
 
-    offers = pd.read_csv("samples/listings.csv", sep = ",", nrows = 100)
-    return offers[["listing_url", "description"]]
+    offers = pd.read_csv("samples/listing_adj.csv", sep = ",")
+    return offers
 
 if __name__ == "__main__":
-    get_offers()
+    add_data()
 
 #FINISH THIS THING UP
 #testing of functions
