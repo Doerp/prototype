@@ -69,7 +69,7 @@ def add_data():
     """
     new_listing_url = input("Please input listing url for new listing: ")
     new_description = input("Please input some descriptions: ")
-    in_file = pd.read_csv("samples/listing_adj.csv", sep = ",", nrows = 150, index_col=False)
+    in_file = pd.read_csv("samples/listing_adj.csv", sep = ",", index_col=False)
 
     in_file.loc[-1] = [new_listing_url, new_description]  # adding a row
     in_file.index = in_file.index + 1  # shifting index
