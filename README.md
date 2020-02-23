@@ -15,6 +15,6 @@ There are two main intended functions:
 1. Search in database
   (Instructions pending)
 2. Organize listings you've already looked at
-
-  Instructions: `python3 flask.py` and then follow the prompts in the browswer
+  
+    Instructions: `python3 flask.py` and then follow the prompts in the browswer
 
