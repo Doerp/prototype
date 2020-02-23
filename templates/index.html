@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ author }}'s prototype</title>
+  </head>
+
+  <body>
+    <h2>Hello {{ name }}!</h2>
+    <h3>This is a housing organizer tool </h3>>
+    <p>Tell us the things or features that you care about when looking for a residential/commercial space, 
+        input your prefereces separated by comma (',')</p>
+
+    <form METHOD="POST" ACTION="/weight_input">
+        <TABLE BORDER="1">
+          <TR>
+            <TD>Features you care about: </TD>
+            <TD>
+              <input type="text" name="preferences_string">
+            </TD>
+          </TR>
+          <!-- <TR>
+            <TD>Your E-mail address</TD>
+            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25"></TD>
+          </TR> -->
+        </TABLE>
+        <P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="submit_button1"></P>
+    </form>
+
+    <p> Please also input the url of the listing that you are currently looking at: </p>
+
+
+  </body>
+</html>
+
+
+
+
+
+
+    <!-- a very simple form
+    <form action="/signup" method="post">
+        <input type="text" name="email"></input>
+        <input type="submit" value="Signup"></input>
+    </form> -->
+
+    <!-- <form METHOD="POST" ACTION="/signup">
+        <TABLE BORDER="1">
+          <TR>
+            <TD>Your name</TD>
+            <TD>
+              <INPUT TYPE="TEXT" NAME="name" SIZE="20">
+            </TD>
+          </TR>
+          <TR>
+            <TD>Your E-mail address</TD>
+            <TD><INPUT TYPE="TEXT" NAME="email" SIZE="25"></TD>
+          </TR>
+        </TABLE>
+        <P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="B1"></P>
+    </form> -->

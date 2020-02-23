@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ author }}'s prototype</title>
+    </head>
+
+    <body>
+        <h2>Weight input!</h2>
+        <p>Now that we have a list of your preferences ({{ preferences }}), please input your weight of importance for each feature: </p>
+
+        <form METHOD="POST" ACTION="/score_input">
+            <TABLE BORDER="1">
+              <TR>
+                <TD> Features: </TD>
+                <TD> preferences[0] </TD>
+                <TD> preferences[1] </TD>
+                <TD> preferences[2] </TD>
+                <TD> preferences[3] </TD>
+              </TR>
+              <TR>
+                <TD> Weight Out of 100</TD>
+                <TD><INPUT TYPE="number" NAME="feature_weight"></TD>
+                <TD><INPUT TYPE="number" NAME="feature_weight"></TD>
+                <TD><INPUT TYPE="number" NAME="feature_weight"></TD>
+                <TD><INPUT TYPE="number" NAME="feature_weight"></TD>
+              </TR>
+            </TABLE>
+            <P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="submit_button2"></P>
+        </form>
+
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ author }}'s prototype</title>
+    </head>
+
+    <body>
+        <h2>Score input!</h2>
+        <p>Now that we have your preferences and weights, please input your score for each feature: </p>
+
+        <form METHOD="POST" ACTION="/display_rating">
+            <TABLE BORDER="1">
+              <TR>
+                <TD> Features: </TD>
+                <TD> preferences[0] </TD>
+                <TD> preferences[1] </TD>
+                <TD> preferences[2] </TD>
+                <TD> preferences[3] </TD>
+              </TR>
+              <TR>
+                <TD> Scores </TD>
+                <TD><INPUT TYPE="number" NAME="score"></TD>
+                <TD><INPUT TYPE="number" NAME="score"></TD>
+                <TD><INPUT TYPE="number" NAME="score"></TD>
+                <TD><INPUT TYPE="number" NAME="score"></TD>
+              </TR>
+            </TABLE>
+            <P><INPUT TYPE="SUBMIT" VALUE="Submit" NAME="submit_button3"></P>
+        </form>
+
+    </body>
+</html>
