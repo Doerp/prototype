@@ -13,13 +13,10 @@ def hello_world():
 
 @app.route('/weight_input', methods = ['POST'])
 def user_input():
-   preferences_string = request.form['preferences_string']
-
    global preferences
-
+   preferences_string = request.form['preferences_string']
    preferences = [x.strip() for x in preferences_string.split(',')]
 
-   print("The list of preferences is", preferences)
    return render_template('weight_input.html', preferences=preferences)
 
 @app.route('/score_input', methods = ['GET', 'POST'])
@@ -31,6 +28,7 @@ def weight_input():
    for i in range(len(preferences)):
       print("i", i)
       preferences_with_weight[preferences[i]] = weights_list[i]
+
    return render_template('score_input.html', preferences=preferences, weights_list=weights_list)
 
 
@@ -39,21 +37,12 @@ def display_rating():
    global preferences
    global preferences_with_weight
    global final_rating
-   print("preferences", preferences)
+
    final_rating = {}
    scores_list = request.form.getlist('score')
-
    for i in range(len(preferences)):
-      print("i", i)
-      # print("curr preferences: ", preferences[i])
-      # print("curr weight: ", preferences_with_weight[preferences[i]])
-      # print("curr score: ", scores_list[i])
-      print("curr rating: ", int(preferences_with_weight[preferences[i]]) * int(scores_list[i]) / 100)
       final_rating[preferences[i]] = int(preferences_with_weight[preferences[i]]) * int(scores_list[i]) / 100
       final_rating_number = sum(final_rating.values())
-
-   for key, value in final_rating.items():
-      print("final ratings are: ", [key, value])
 
    return render_template('display_rating.html', final_rating=final_rating, final_rating_number=final_rating_number)
 
